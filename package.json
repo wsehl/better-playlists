@@ -7,11 +7,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",
-    "clientbuild": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm run install",
-    "glack": "concurrently \"npm run server\" \"npm run clientbuild\""
   },
   "author": "",
   "license": "ISC",
