@@ -1,27 +1,30 @@
 # spotify-enhance
 
-## local
+## Development setup
+### local
 
-```sh
-npm i
-npm run dev
-```
-
-.env in root folder
+create .env in root folder
 
 ```sh
 SPOTIFY_CLIENT_ID=
 SPOTIFY_CLIENT_SECRET=
 ```
 
-## netlify (client)
+install packages and run 
+
+```sh
+npm i
+npm run dev
+```
+
+### netlify (client)
 ```sh
 Base directory: client
 Build command: CI=false npm run build
 Publish directory: client/build
 ```
 
-## heroku (server)
+### heroku (server)
 ```sh
 heroku create spotify-serv-backend
 heroku buildpacks:set heroku/nodejs
