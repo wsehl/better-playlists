@@ -26,7 +26,7 @@ Publish directory: client/build
 heroku create spotify-serv-backend
 heroku config:set SPOTIFY_CLIENT_SECRET=
 heroku config:set SPOTIFY_CLIENT_ID=
-heroku config:set FRONTEND_URI=
-heroku config:set REDIRECT_URI=
+heroku config:set FRONTEND_URI=https://app.netlify.app/
+heroku config:set REDIRECT_URI=https://app.herokuapp.com/callback
 git push heroku master
 ```
