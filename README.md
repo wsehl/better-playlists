@@ -24,6 +24,7 @@ Publish directory: client/build
 ## heroku (server)
 ```sh
 heroku create spotify-serv-backend
+heroku buildpacks:set heroku/nodejs
 heroku config:set SPOTIFY_CLIENT_SECRET=
 heroku config:set SPOTIFY_CLIENT_ID=
 heroku config:set FRONTEND_URI=https://app.netlify.app/
