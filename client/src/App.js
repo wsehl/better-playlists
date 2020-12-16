@@ -193,7 +193,7 @@ class App extends Component {
               {this.state.user.name}
             </h1>
 
-            {/*
+            
             <PlaylistCounter playlists={playlistToRender} />
             <HoursCounter playlists={playlistToRender} />
         
@@ -205,7 +205,7 @@ class App extends Component {
             {playlistToRender.map((playlist, i) => (
               <Playlist playlist={playlist} index={i} />
             ))}
-            */}
+            
           </div>
         ) : (
           <button
