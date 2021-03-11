@@ -1,103 +1,14 @@
 import React, { Component } from "react";
-import "reset-css/reset.css";
-import "./App.css";
 import queryString from "query-string";
+import PlaylistCounter from "./components/PlaylistCounter";
+import HoursCounter from "./components/HoursCounter";
+import Filter from "./components/Filter";
+import Playlist from "./components/Playlist";
 
 let defaultStyle = {
   color: "#fff",
   "font-family": "Papyrus",
 };
-let counterStyle = {
-  ...defaultStyle,
-  width: "40%",
-  display: "inline-block",
-  "margin-bottom": "20px",
-  "font-size": "20px",
-  "line-height": "30px",
-};
-
-function isEven(number) {
-  return number % 2;
-}
-
-class PlaylistCounter extends Component {
-  render() {
-    let playlistCounterStyle = counterStyle;
-    return (
-      <div style={playlistCounterStyle}>
-        <h2>{this.props.playlists.length} playlists</h2>
-      </div>
-    );
-  }
-}
-
-class HoursCounter extends Component {
-  render() {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
-      return songs.concat(eachPlaylist.songs);
-    }, []);
-    let totalDuration = allSongs.reduce((sum, eachSong) => {
-      return sum + eachSong.duration;
-    }, 0);
-    let totalDurationHours = Math.round(totalDuration / 60);
-    let isTooLow = totalDurationHours < 40;
-    let hoursCounterStyle = {
-      ...counterStyle,
-      color: isTooLow ? "red" : "white",
-      "font-weight": isTooLow ? "bold" : "normal",
-    };
-    return (
-      <div style={hoursCounterStyle}>
-        <h2>{totalDurationHours} hours</h2>
-      </div>
-    );
-  }
-}
-
-class Filter extends Component {
-  render() {
-    return (
-      <div style={defaultStyle}>
-        <img />
-        <input
-          type="text"
-          onKeyUp={(event) => this.props.onTextChange(event.target.value)}
-          style={{
-            ...defaultStyle,
-            color: "black",
-            "font-size": "20px",
-            padding: "10px",
-          }}
-        />
-      </div>
-    );
-  }
-}
-
-class Playlist extends Component {
-  render() {
-    let playlist = this.props.playlist;
-    return (
-      <div
-        style={{
-          ...defaultStyle,
-          display: "inline-block",
-          width: "25%",
-          padding: "10px",
-          "background-color": isEven(this.props.index) ? "#C0C0C0" : "#808080",
-        }}
-      >
-        <h2>{playlist.name}</h2>
-        <img src={playlist.imageUrl} style={{ width: "60px" }} />
-        <ul style={{ "margin-top": "10px", "font-weight": "bold" }}>
-          {playlist.songs.map((song) => (
-            <li style={{ "padding-top": "2px" }}>{song.name}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
 
 class App extends Component {
   constructor() {
@@ -193,10 +104,9 @@ class App extends Component {
               {this.state.user.name}
             </h1>
 
-            
             <PlaylistCounter playlists={playlistToRender} />
             <HoursCounter playlists={playlistToRender} />
-        
+
             <Filter
               onTextChange={(text) => {
                 this.setState({ filterString: text });
@@ -205,7 +115,6 @@ class App extends Component {
             {playlistToRender.map((playlist, i) => (
               <Playlist playlist={playlist} index={i} />
             ))}
-            
           </div>
         ) : (
           <button
