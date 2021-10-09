@@ -1,29 +1,43 @@
 {
-  "name": "spoti",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "measurify",
+  "type": "module",
+  "version": "0.0.3",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "serve": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 3000",
+    "server": "nodemon server/index.js",
+    "dev": "concurrently \"npm run serve\" \"npm run server\" ",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix .",
+    "format": "prettier --write ."
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.2",
-    "autoprefixer": "^9.8.6",
-    "create-react-app": "^4.0.1",
-    "dotenv": "^8.2.0",
+    "@types/react-dom": "^17.0.9",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "postcss": "^7.0.35",
-    "querystring": "^0.2.0",
-    "request": "^2.88.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
+    "prop-types": "^15.7.2",
+    "query-string": "^7.0.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "nodemon": "^2.0.6"
+    "@types/react": "^17.0.27",
+    "@vitejs/plugin-react": "^1.0.0",
+    "concurrently": "^6.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vite-plugin-windicss": "^1.4.9",
+    "windicss": "^3.1.9"
   }
 }
