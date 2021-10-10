@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./client",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": [
@@ -7,6 +8,11 @@
       "DOM.Iterable",
       "ESNext"
     ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
     "allowJs": false,
     "skipLibCheck": false,
     "esModuleInterop": false,

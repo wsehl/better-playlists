@@ -1,26 +1,28 @@
 import React from "react"
-import PropTypes from "prop-types"
+import { IPlaylist, ISong } from "@/types"
 
-function HoursCounter(props) {
+interface Props {
+  playlists: Array<IPlaylist>
+}
+
+function HoursCounter(props: Props) {
   const { playlists } = props
-  const allSongs = playlists.reduce(
-    (songs, eachPlaylist) => songs.concat(eachPlaylist.songs),
-    []
-  )
-  const totalDuration = allSongs.reduce(
-    (sum, eachSong) => sum + eachSong.duration,
-    0
-  )
+
+  const allSongs = playlists.reduce((songs: Array<ISong>, eachPlaylist) => {
+    return songs.concat(eachPlaylist.songs)
+  }, [])
+
+  const totalDuration = allSongs.reduce((sum, eachSong: ISong) => {
+    return sum + eachSong.duration
+  }, 0)
+
   const totalDurationHours = Math.round(totalDuration / 60)
+
   return (
     <div>
       <h2>{totalDurationHours} hours</h2>
     </div>
   )
-}
-
-HoursCounter.propTypes = {
-  playlists: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default HoursCounter

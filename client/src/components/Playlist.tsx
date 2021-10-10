@@ -1,7 +1,11 @@
 import React from "react"
-import PropTypes from "prop-types"
+import { IPlaylist } from "@/types"
 
-function Playlist(props) {
+interface Props {
+  playlist: IPlaylist
+}
+
+export default function Playlist(props: Props) {
   const { playlist } = props
   return (
     <div
@@ -28,8 +32,8 @@ function Playlist(props) {
             {playlist.name}
           </span>
           <ul className="text-gray-400 text-xs truncate">
-            {playlist.songs.map((song) => (
-              <li>{song.name}</li>
+            {playlist.songs.map((song, i) => (
+              <li key={i}>{song.name}</li>
             ))}
           </ul>
         </div>
@@ -37,10 +41,3 @@ function Playlist(props) {
     </div>
   )
 }
-
-Playlist.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  playlist: PropTypes.object.isRequired,
-}
-
-export default Playlist

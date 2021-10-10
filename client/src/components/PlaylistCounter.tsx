@@ -1,7 +1,10 @@
 import React from "react"
-import PropTypes from "prop-types"
+import { IPlaylist } from "@/types"
+interface Props {
+  playlists: Array<IPlaylist>
+}
 
-function PlaylistCounter(props) {
+function PlaylistCounter(props: Props) {
   const { playlists } = props
 
   return (
@@ -9,10 +12,6 @@ function PlaylistCounter(props) {
       <h2>{playlists.length} playlists</h2>
     </div>
   )
-}
-
-PlaylistCounter.propTypes = {
-  playlists: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default PlaylistCounter
