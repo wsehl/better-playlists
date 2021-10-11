@@ -1,4 +1,5 @@
 export interface IPlaylist {
+  filter: any
   name: string
   imageUrl: string
   songs: Array<ISong>

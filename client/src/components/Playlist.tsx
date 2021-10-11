@@ -7,6 +7,7 @@ interface Props {
 
 export default function Playlist(props: Props) {
   const { playlist } = props
+
   return (
     <div
       className="

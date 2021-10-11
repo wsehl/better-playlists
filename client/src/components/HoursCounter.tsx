@@ -5,7 +5,7 @@ interface Props {
   playlists: Array<IPlaylist>
 }
 
-function HoursCounter(props: Props) {
+export default function HoursCounter(props: Props) {
   const { playlists } = props
 
   const allSongs = playlists.reduce((songs: Array<ISong>, eachPlaylist) => {
@@ -24,5 +24,3 @@ function HoursCounter(props: Props) {
     </div>
   )
 }
-
-export default HoursCounter

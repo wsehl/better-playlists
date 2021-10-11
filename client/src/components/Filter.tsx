@@ -4,7 +4,7 @@ interface Props {
   onTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-function Filter(props: Props) {
+export default function Filter(props: Props) {
   return (
     <input
       type="text"
@@ -14,5 +14,3 @@ function Filter(props: Props) {
     />
   )
 }
-
-export default Filter

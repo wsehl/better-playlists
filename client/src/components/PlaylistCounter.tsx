@@ -1,5 +1,6 @@
 import React from "react"
 import { IPlaylist } from "@/types"
+
 interface Props {
   playlists: Array<IPlaylist>
 }
