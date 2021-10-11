@@ -1,5 +1,5 @@
 import React from "react"
-import { SERVER_URI } from "../config"
+import { SERVER_URI } from "@/config"
 
 export default function Login() {
   return (

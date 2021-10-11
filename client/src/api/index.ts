@@ -1,7 +1,7 @@
 import axios from "axios"
-import { getHashParams } from "../utils"
-import { SERVER_URI, TOKEN_EXPIRATION_TIME } from "../config"
-import Tokens from "../helpers/tokensInstance"
+import { getHashParams } from "@/utils"
+import { SERVER_URI, TOKEN_EXPIRATION_TIME } from "@/config"
+import Tokens from "@/helpers/tokensInstance"
 
 const tokens = Tokens.getInstance()
 

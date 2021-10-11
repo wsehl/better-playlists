@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
-import PlaylistCounter from "../components/PlaylistCounter"
-import HoursCounter from "../components/HoursCounter"
-import Filter from "../components/Filter"
-import Playlist from "../components/Playlist"
-import Loader from "../components/Loader"
+import PlaylistCounter from "@/components/PlaylistCounter"
+import HoursCounter from "@/components/HoursCounter"
+import Filter from "@/components/Filter"
+import Playlist from "@/components/Playlist"
+import Loader from "@/components/Loader"
 import {
   getUser,
   getPlaylists,
   getPlaylist,
   getPlaylistTracks,
   logout,
-} from "../api"
+} from "@/api"
 import { IPlaylist } from "@/types"
 
 export default function Home() {
