@@ -2,6 +2,12 @@ import axios from "axios"
 import { getHashParams } from "@/utils"
 import { SERVER_URI, TOKEN_EXPIRATION_TIME } from "@/config"
 import Tokens from "@/helpers/tokensInstance"
+import {
+  ISpotifyPlaylists,
+  ISpotifySongs,
+  ISpotifyUser,
+  ISpotifyPlaylist,
+} from "@/types/index"
 
 const tokens = Tokens.getInstance()
 
@@ -89,18 +95,20 @@ spotifyApi.interceptors.response.use(
   }
 )
 
-export const getUser = (): Promise<any> => {
+export const getUser = (): Promise<ISpotifyUser> => {
   return spotifyApi.get("/me")
 }
 
-export const getPlaylists = (): Promise<any> => {
+export const getPlaylists = (): Promise<ISpotifyPlaylists> => {
   return spotifyApi.get("/me/playlists")
 }
 
-export const getPlaylist = (playlistId: string): Promise<any> => {
+export const getPlaylist = (playlistId: string): Promise<ISpotifyPlaylist> => {
   return spotifyApi.get(`/playlists/${playlistId}`)
 }
 
-export const getPlaylistTracks = (playlistId: string): Promise<any> => {
+export const getPlaylistTracks = (
+  playlistId: string
+): Promise<ISpotifySongs> => {
   return spotifyApi.get(`/playlists/${playlistId}/tracks`)
 }

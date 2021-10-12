@@ -20,7 +20,7 @@ export default function Home() {
   }
 
   const [filterString, setFilterString] = useState("")
-  const [playlists, setPlaylists] = useState<IPlaylist | null>(null)
+  const [playlists, setPlaylists] = useState<Array<IPlaylist> | null>(null)
   const [user, setUser] = useState<IUser | null>(null)
 
   useEffect(() => {
@@ -32,16 +32,17 @@ export default function Home() {
       })
       getPlaylists()
         .then((playlistData) => {
+
           const playlists = playlistData.items
-          const trackDataPromises = playlists.map((playlist: any) => {
+          const trackDataPromises = playlists.map((playlist) => {
             return getPlaylistTracks(playlist.id)
           })
           const allTracksDataPromises = Promise.all(trackDataPromises)
           const playlistsPromise = allTracksDataPromises.then((trackDatas) => {
-            trackDatas.forEach((trackData: any, i) => {
+            trackDatas.forEach((trackData, i) => {
               playlists[i].trackDatas = trackData.items
-                .map((item: any) => item.track)
-                .map((track: any) => ({
+                .map((item) => item.track)
+                .map((track) => ({
                   name: track.name,
                   duration: track.duration_ms / 1000,
                 }))
@@ -50,9 +51,9 @@ export default function Home() {
           })
           return playlistsPromise
         })
-        .then((playlists: any) => {
+        .then((playlists) => {
           return setPlaylists(
-            playlists.map((item: any) => ({
+            playlists.map((item) => ({
               name: item.name,
               imageUrl: item.images[0].url,
               songs: item.trackDatas.slice(0, 3),
@@ -63,11 +64,11 @@ export default function Home() {
   }, [])
 
   const playlistToRender = playlists
-    ? playlists.filter((playlist: any) => {
+    ? playlists.filter((playlist) => {
         const matchesPlaylist = playlist.name
           .toLowerCase()
           .includes(filterString.toLowerCase())
-        const matchesSong = playlist.songs.find((song: any) =>
+        const matchesSong = playlist.songs.find((song) =>
           song.name.toLowerCase().includes(filterString.toLowerCase())
         )
         return matchesPlaylist || matchesSong
@@ -109,7 +110,7 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-wrap gap-3">
-              {playlistToRender.map((playlist: any, i: any) => (
+              {playlistToRender.map((playlist, i:number) => (
                 <Playlist playlist={playlist} key={i} />
               ))}
             </div>
