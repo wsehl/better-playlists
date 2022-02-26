@@ -23,44 +23,39 @@ export default function Home() {
   const [playlists, setPlaylists] = useState<Array<IPlaylist> | null>(null)
   const [user, setUser] = useState<IUser | null>(null)
 
-  useEffect(() => {
-    ;(async () => {
-      const userData = await getUser()
-      setUser({
-        name: userData.display_name,
-        avatar: userData.images[0].url,
-      })
-      getPlaylists()
-        .then((playlistData) => {
+  async function fetchData() {
+    const { display_name, images } = await getUser()
 
-          const playlists = playlistData.items
-          const trackDataPromises = playlists.map((playlist) => {
-            return getPlaylistTracks(playlist.id)
-          })
-          const allTracksDataPromises = Promise.all(trackDataPromises)
-          const playlistsPromise = allTracksDataPromises.then((trackDatas) => {
-            trackDatas.forEach((trackData, i) => {
-              playlists[i].trackDatas = trackData.items
-                .map((item) => item.track)
-                .map((track) => ({
-                  name: track.name,
-                  duration: track.duration_ms / 1000,
-                }))
-            })
-            return playlists
-          })
-          return playlistsPromise
-        })
-        .then((playlists) => {
-          return setPlaylists(
-            playlists.map((item) => ({
-              name: item.name,
-              imageUrl: item.images[0].url,
-              songs: item.trackDatas.slice(0, 3),
-            }))
-          )
-        })
-    })()
+    setUser({ name: display_name, avatar: images[0].url })
+
+    const { items: playlists } = await getPlaylists()
+
+    const trackDataPromises = playlists.map((playlist) => {
+      return getPlaylistTracks(playlist.id)
+    })
+
+    const trackDatas = await Promise.all(trackDataPromises)
+
+    trackDatas.forEach((trackData, i) => {
+      playlists[i].trackDatas = trackData.items
+        .map((item) => item.track)
+        .map((track) => ({
+          name: track.name,
+          duration: track.duration_ms / 1000,
+        }))
+    })
+
+    const formattedPlaylists = playlists.map((item) => ({
+      name: item.name,
+      imageUrl: item.images[0].url,
+      songs: item.trackDatas.slice(0, 3),
+    }))
+
+    setPlaylists(formattedPlaylists)
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
 
   const playlistToRender = playlists
@@ -75,51 +70,56 @@ export default function Home() {
       })
     : null
 
+  const containerStyle = {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, 140px)",
+    justifyContent: "space-between",
+    gridGap: "20px",
+  }
+
   return (
     <div className="container">
       {user && playlistToRender ? (
-        <>
-          <div className="flex flex-col gap-3 mt-3">
-            <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-2">
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className="w-16 h-16 object-cover rounded-full"
-                />
-                <h1 className="text-2xl font-medium">{user.name}</h1>
-              </div>
-              <div>
-                <button
-                  className="px-4 py-2 font-medium text-center rounded-lg bg-red-500 bg-opacity-90 text-white focus:outline-none focus:ring-2 ring-red-500 ring-opacity-20 shadow"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
+        <div className="flex flex-col gap-3 mt-3">
+          <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-2">
-              <PlaylistCounter playlists={playlistToRender} />
-              <HoursCounter playlists={playlistToRender} />
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="w-16 h-16 object-cover rounded-full"
+              />
+              <h1 className="text-2xl font-medium">{user.name}</h1>
             </div>
             <div>
-              <Filter
-                onTextChange={(text: any) => {
-                  setFilterString(text)
-                }}
-              />
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {playlistToRender.map((playlist, i:number) => (
-                <Playlist playlist={playlist} key={i} />
-              ))}
+              <button
+                className="px-4 py-2 font-medium text-center rounded-lg bg-red-500 bg-opacity-90 text-white focus:outline-none focus:ring-2 ring-red-500 ring-opacity-20 shadow"
+                onClick={logout}
+              >
+                Logout
+              </button>
             </div>
           </div>
-        </>
+          <div className="flex items-center gap-2">
+            <PlaylistCounter playlists={playlistToRender} />
+            <HoursCounter playlists={playlistToRender} />
+          </div>
+          <div>
+            <Filter
+              onTextChange={(text: any) => {
+                setFilterString(text)
+              }}
+            />
+          </div>
+          <div style={containerStyle}>
+            {playlistToRender.map((playlist, i: number) => (
+              <Playlist playlist={playlist} key={i} />
+            ))}
+          </div>
+        </div>
       ) : (
-        <>
+        <div className="h-screen flex items-center justify-center">
           <Loader></Loader>
-        </>
+        </div>
       )}
     </div>
   )

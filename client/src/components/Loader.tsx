@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Loader() {
   return (
-    <div className="opacity-80 h-80 flex items-center justify-center">
+    <div className="opacity-80 flex items-center justify-center">
       <svg
         className="animate-spin h-12 w-12 text-white"
         xmlns="http://www.w3.org/2000/svg"
